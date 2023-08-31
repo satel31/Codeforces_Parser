@@ -15,10 +15,11 @@ def request_data() -> dict:
     else:
         print("Error:", response.status_code)
 
+
 @shared_task
 def problem_data_create() -> None:
-    """Compiling dictionaries with the necessary data to be entered into the database in the problem table"""
-    problem_data = request_data()
+    """Adds problems to the db after parsing"""
+    problem_data: dict = request_data()
     problem_db = []
     for p in problem_data['problems']:
         if Problem.objects.filter(problem_name=p['name']).count() == 0:
@@ -36,7 +37,9 @@ def problem_data_create() -> None:
             problem_db.append(Problem(**problem))
     Problem.objects.bulk_create(problem_db)
 
-def make_used_problem(problem_set):
+
+def make_used_problem(problem_set: list) -> None:
+    """Changes flag is_used to True when the problem is used in some contest"""
     for problem in problem_set:
         problem['is_used'] = True
         problem.save()

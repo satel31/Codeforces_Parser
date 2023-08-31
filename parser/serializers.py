@@ -17,10 +17,10 @@ class ProblemCreateSerializer(serializers.ModelSerializer):
 class ProblemListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
-        fields = ('problem_name', 'raiting',)
+        fields = ('problem_name', 'rating',)
 
 
 class ProblemDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
-        fields = ('problem_name', 'raiting', 'topics', 'solutions_amount', 'index',)
+        fields = ('problem_name', 'rating', 'topics', 'solutions_amount', 'index',)

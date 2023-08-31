@@ -12,29 +12,29 @@ from parser.services import make_used_problem
 
 class Command(BaseCommand):
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         bot_token = settings.TELEGRAM_API_KEY
 
         bot = telebot.TeleBot(bot_token)
 
         @bot.message_handler(content_types=['text'])
-        def start(message):
+        def start(message) -> None:
             if message.text == '/start':
                 bot.send_message(message.from_user.id, "Choose difficulty from 0 to 3500")
                 bot.register_next_step_handler(message, get_difficulty)
 
-        def get_difficulty(message):
+        def get_difficulty(message) -> None:
             global difficulty_choice
             difficulty_choice = message.text
             bot.send_message(message.from_user.id, 'Choose topic')
             bot.register_next_step_handler(message, get_topic)
 
-        def get_topic(message):
+        def get_topic(message) -> None:
             global topic_choice
             topic_choice = message.text
             bot.register_next_step_handler(message, get_result)
 
-        def get_result(message):
+        def get_result(message) -> None:
             problems = Problem.objects.filter(rating=difficulty_choice, topics__in=topic_choice, is_used=False)
             problem_set = random.sample(problems, 10)
             make_used_problem(problem_set)
