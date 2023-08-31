@@ -1,5 +1,7 @@
-import os
 import random
+
+from django.conf import settings
+
 from parser.models import Problem
 import telebot
 
@@ -11,7 +13,7 @@ from parser.services import make_used_problem
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        bot_token = os.getenv('telegram_api_key')
+        bot_token = settings.TELEGRAM_API_KEY
 
         bot = telebot.TeleBot(bot_token)
 
