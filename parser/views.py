@@ -5,18 +5,17 @@ from parser.serializers import ProblemCreateSerializer, ProblemListSerializer, P
 
 
 class ProblemCreateAPIView(generics.CreateAPIView):
-    """View to create a habit."""
+    """View to create a problem."""
     serializer_class = ProblemCreateSerializer
 
 
 class ProblemListAPIView(generics.ListAPIView):
-    """View to get a list of habits (returns only your own habits)."""
+    """View to get a list of problems."""
     serializer_class = ProblemListSerializer
     queryset = Problem.objects.all()
 
 
 class ProblemDetailAPIView(generics.RetrieveAPIView):
-    """View to get a particular habit by its id (returns only your own habits).
-       In case of the tests don't forget to change permissions."""
+    """View to get a particular problem by its id."""
     serializer_class = ProblemDetailSerializer
     queryset = Problem.objects.all()
