@@ -6,6 +6,7 @@ from parser.models import Problem
 
 class ProblemTestCase(APITestCase):
     def setUp(self) -> None:
+        """Create test db"""
         self.url = '/parser/'
         self.data = {
             'topics': 'test',
@@ -15,7 +16,7 @@ class ProblemTestCase(APITestCase):
         }
         self.problem = Problem.objects.create(**self.data)
 
-    def test_1_create_problem(self):
+    def test_1_create_problem(self) -> None:
         """Problem creation testing """
 
         response = self.client.post(f'{self.url}add_problems/')
@@ -23,7 +24,7 @@ class ProblemTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertNotEqual(Problem.objects.all().count(), 0)
 
-    def test_2_list_problem(self):
+    def test_2_list_problem(self) -> None:
         """Problem list testing """
         response = self.client.get(f'{self.url}problems/')
 
@@ -33,7 +34,7 @@ class ProblemTestCase(APITestCase):
             [{'problem_name': 'test', 'rating': None, }]
         )
 
-    def test_4_retrieve_problem(self):
+    def test_4_retrieve_problem(self) -> None:
         """Problem retrieve testing """
 
         response = self.client.get(f'{self.url}problems/{self.problem.pk}/')
