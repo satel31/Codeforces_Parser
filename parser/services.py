@@ -35,3 +35,8 @@ def problem_data_create() -> None:
                 pass
             problem_db.append(Problem(**problem))
     Problem.objects.bulk_create(problem_db)
+
+def make_used_problem(problem_set):
+    for problem in problem_set:
+        problem['is_used'] = True
+        problem.save()
