@@ -15,6 +15,7 @@ def request_data() -> dict:
     else:
         print("Error:", response.status_code)
 
+
 @shared_task
 def problem_data_create() -> None:
     """Compiling dictionaries with the necessary data to be entered into the database in the problem table"""
@@ -35,6 +36,7 @@ def problem_data_create() -> None:
                 pass
             problem_db.append(Problem(**problem))
     Problem.objects.bulk_create(problem_db)
+
 
 def make_used_problem(problem_set):
     for problem in problem_set:
