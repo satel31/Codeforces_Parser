@@ -142,4 +142,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'parser.services.problem_data_create',
         'schedule': timedelta(hours=1)
     },
+    'telegram': {
+        'task': 'parser.tasks.handle_message',
+        'schedule': timedelta(minutes=1)
+    },
 }
+
+TELEGRAM_API_KEY = os.getenv('telegram_api_key')
